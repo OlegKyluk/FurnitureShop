@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Cart</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background-image: url(/home/oleh_kulyk/eclipse-workspace/FurnitureShop-master.zip_expanded/FurnitureShop-master/src/main/resources/templates/Marsala-Multi.jpg)">
+<div th:replace="fragments/header :: header"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <table class="table" style="color: white">
+        <thead>
+        <tr>
+            <th>Color</th>
+            <th>Collection name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th></th>
+            <th>Quantity</th>
+            <th></th>
+            <th>Total price</th>
+            <th>Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="furnitureInCard : ${shoppingCart.furnitureInCards}">
+            <td th:text="${furnitureInCard.furniture.color.name}"></td>
+            <td th:text="${furnitureInCard.furniture.collectionName.name}"></td>
+            <td><img th:src="@{${furnitureInCard.furniture.path}}" th:height="110px" th:width="110px" alt=""></td>
+            <td th:text="${furnitureInCard.furniture.price}"></td>
+            <td>
+                <a th:href="@{/cart/decrementQ/__${furnitureInCard.id}__}">
+                    <button class="glyphicon glyphicon-minus" aria-hidden="true"></button>
+                </a>
+            </td>
+            <td th:text="${furnitureInCard.quantity}"></td>
+            <td>
+                <a th:href="@{/cart/incrementQ/__${furnitureInCard.id}__}">
+                    <button class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+                </a>
+            </td>
+            <td th:text="${furnitureInCard.totalPrice}"></td>
+            <td><a th:href="@{/cart/remove/__${furnitureInCard.id}__}">
+                <button class="glyphicon glyphicon-remove" aria-hidden="true"></button>
+            </a></td>
+        </tr>
+        <tr>
+            <td th:text="${shoppingCart.totalPrice}"></td>
+            <td><a th:href="@{/cart/removeAll}">
+                <button class=" glyphicon glyphicon-trash" aria-hidden="true"></button>
+            </a></td>
+            <td><a th:href="@{/}" style="color: white">Continue shopping</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

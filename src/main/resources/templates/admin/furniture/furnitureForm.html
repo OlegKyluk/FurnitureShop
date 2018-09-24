@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Furniture form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <h1>Furniture</h1>
+    <form class="form-group" th:action="@{/admin/furniture/furnitureEdit}"
+          method="post" enctype="multipart/form-data">
+
+        <label th:if="${#fields.hasErrors('furniture')}"
+               th:errors="*{furniture}"
+               class="validation-message"></label>
+        <div class="form-group">
+            <input th:type="hidden" name="id" th:field="*{furniture.id}" title=""/>
+            <label>Furniture</label>
+            <div class="form-group">
+                <label>Color</label>
+                <div>
+                    <label>
+                        <select th:field="*{furniture.color}">
+                            <option value="">---</option>
+                            <option th:each="color : ${colorList}"
+                                    th:value="${color.id}"
+                                    th:text="${color.name}"></option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Type furniture</label>
+                <div>
+                    <label>
+                        <select th:field="*{furniture.typeFurniture}">
+                            <option value="">---</option>
+                            <option th:each="typeFurniture : ${typeFurnitureList}"
+                                    th:value="${typeFurniture.id}"
+                                    th:text="${typeFurniture.name}"></option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Denomination</label>
+                <div>
+                    <label>
+                        <select th:field="*{furniture.denomination}">
+                            <option value="">---</option>
+                            <option th:each="denomination : ${denominationList}"
+                                    th:value="${denomination.id}"
+                                    th:text="${denomination.name}"></option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Collection name</label>
+                <div>
+                    <label>
+                        <select th:field="*{furniture.collectionName}">
+                            <option value="">---</option>
+                            <option th:each="collectionName : ${collectionNameList}"
+                                    th:value="${collectionName.id}"
+                                    th:text="${collectionName.name}"></option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <label>Description</label>
+            <input type="text" class="form-control" th:field="${furniture.description}" title=""/>
+            <br>
+            <label>Price</label>
+            <label th:if="${#fields.hasErrors('furniture.price')}"
+                   th:errors="*{furniture.price}"
+                   class="validation-message"></label>
+            <input type="text" class="form-control" th:field="${furniture.price}" title=""/>
+            <br>
+            <label>Photo</label>
+            <label>
+                <input type="file" name="file" value="upload"/>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="#" th:href="@{/admin/furniture/}" class="btn btn-danger" role="button">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

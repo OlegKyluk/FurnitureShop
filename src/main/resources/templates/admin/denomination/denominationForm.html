@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Denomination form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <h1>Denomination</h1>
+    <form class="form-group" action="/admin/denomination/denominationEdit"
+          th:action="@{/admin/denomination/denominationEdit}" method="post">
+        <input th:type="hidden" name="id" th:field="${denomination.id}" title=""/>
+        <div class="form-group">
+            <label th:if="${#fields.hasErrors('denomination.name')}"
+                   th:errors="*{denomination.name}"
+                   class="validation-message"></label>
+            <input type="text" class="form-control" id="title" th:field="${denomination.name}"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="#" th:href="@{/admin/denomination/}" class="btn btn-danger" role="button">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

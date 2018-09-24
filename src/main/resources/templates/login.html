@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Page</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body style="background-image: url(/home/oleh_kulyk/eclipse-workspace/FurnitureShop-master.zip_expanded/FurnitureShop-master/src/main/resources/templates/Marsala-Multi.jpg)">
+<div th:replace="fragments/header :: header"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div>
+        <form th:action="@{/login}" method="POST" class="form-signin">
+            <h3 class="form-signin-heading" th:text="Welcome" style="color: white"></h3>
+            <br/>
+            <input type="text" id="email" name="email" th:placeholder="Email"
+                   class="form-control" title=""/> <br/>
+            <input type="password" th:placeholder="Password"
+                   id="password" name="password" class="form-control" title=""/>
+            <br/>
+            <div align="center" th:if="${param.error}">
+                <div class="alert alert-danger" role="alert">Email or password invalid, please verify.</div>
+
+            </div>
+            <input type="checkbox" name="rememberMe" title=""/> <span style="color: white">Remember me</span>
+            <br>
+            <br>
+            <button class="btn btn-primary btn-lg" type="Submit"
+                    th:text="Login">Large button
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

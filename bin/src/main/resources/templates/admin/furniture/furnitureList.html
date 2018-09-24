@@ -1,0 +1,232 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Furnitures</title>
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-md-2"><h1>Furniture</h1></div>
+            <div class="col-md-5">
+                <br>
+                Page size:
+                <span sd:page-size-selector="javascript"></span>
+                <div class="col-md-7">
+                    <a th:href="@{~/admin/furniture(sort=(${page?.sort?.getOrderFor('price')?.ascending} ? 'price,desc' : 'price,asc'))}">
+                        <button>
+                            <span style="font-size: 15px;color: black">Min -> Max</span>
+                        </button>
+                    </a>
+                    <a th:href="@{~/admin/furniture(sort=(${page?.sort?.getOrderFor('price')?.descending} ? 'price,asc' : 'price,desc'))}">
+                        <button>
+                            <span style="font-size: 15px;color: black">Max -> Min</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <div class="col-md-3" align="right" sd:pagination-summary=""></div>
+        </div>
+        <!-------Filter------->
+        <div class="col-md-3">
+            <div id="accordion" class="panel behclick-panel">
+                <form action="#" th:action="@{/admin/furniture}" method="GET" th:object="${filter}">
+                    <div class="panel-body">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <div>
+                                    <i aria-hidden="true"></i> Price
+                                </div>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse in">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <input th:field="*{min}" placeholder="Min" size="7"/> -
+                                    <input th:field="*{max}" placeholder="Max" size="8"/>
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-default" type="submit"
+                                            style="width:98%;background-color: #33393f;color: #fefefe">OK
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="panel-heading ">
+                            <h4 class="panel-title">
+                                <div>
+                                    <i aria-hidden="true"></i> Denomination
+                                </div>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse in">
+                            <ul class="list-group">
+                                <li class="list-group-item" th:each="denomination : ${denominationList}">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" th:field="*{denominationId}"
+                                                   th:value="${denomination.id}"
+                                                   th:text="${denomination.name}"/>
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <div><i aria-hidden="true"></i> Color
+                                </div>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse in">
+                            <ul class="list-group">
+                                <li class="list-group-item" th:each="color : ${colorList}">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" th:field="*{colorId}" th:value="${color.id}"
+                                                   th:text="${color.name}"/>
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <div><i aria-hidden="true"></i> Type
+                                    Furniture
+                                </div>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse in">
+                            <ul class="list-group">
+                                <li class="list-group-item" th:each="typeFurniture : ${typeFurnitureList}">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" th:field="*{typeFurnitureId}"
+                                                   th:value="${typeFurniture.id}"
+                                                   th:text="${typeFurniture.name}">
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <div><i aria-hidden="true"></i> Collection
+                                    Name
+                                </div>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse in">
+                            <ul class="list-group">
+                                <li class="list-group-item" th:each="collectionName : ${collectionNameList}">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" th:field="*{collectionNameId}"
+                                                   th:value="${collectionName.id}"
+                                                   th:text="${collectionName.name}"/>
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-default btn-block" style="background-color: #33393f;color: #fefefe"
+                                type="submit">Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------/Filter------->
+        <br/>
+
+        <!--List-->
+        <div class="col-md-9">
+            <div class="row">
+                <p>
+                    <a href="/admin/furniture/furnitureEdit" th:href="@{/admin/furniture/furnitureEdit}">
+                        <button class="btn-block">Create</button>
+                    </a>
+                </p>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Color</th>
+                    <th>Type furniture</th>
+                    <th>Denomination</th>
+                    <th>Collection name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Photo</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="furniture : ${furnitureList.content}">
+                    <td th:text="${furniture.id}"></td>
+                    <td th:text="${furniture?.color?.name}"></td>
+                    <td th:text="${furniture?.typeFurniture?.name}"></td>
+                    <td th:text="${furniture?.denomination?.name}"></td>
+                    <td th:text="${furniture?.collectionName?.name}"></td>
+                    <td th:text="${furniture.description}"></td>
+                    <td th:text="${furniture.price}"></td>
+                    <td>
+                        <img th:src="@{${furniture.path}}" th:height="110px" th:width="110px" alt="">
+                    </td>
+                    <td>
+                        <a href="/admin/furniture/furnitureEdit/"
+                           th:href="@{/admin/furniture/furnitureEdit/__${furniture.id}__}">Edit</a>
+                        <a href="/admin/furniture/furnitureDelete/"
+                           th:href="@{/admin/furniture/furnitureDelete/__${furniture.id}__}">Delete</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!--/List-->
+        <div class="row" align="center">
+            <br>
+            <ul class="pagination" sd:pagination="full">
+                <li class="disabled">
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">1
+                        <span class="sr-only"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

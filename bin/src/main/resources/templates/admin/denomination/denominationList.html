@@ -1,0 +1,117 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Denominations</title>
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div>
+        <h1>Denomination</h1>
+        <div class="col-md-5">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/admin/denomination}" method="GET" th:object="${filter}">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <input class="form-control" th:field="*{search}" placeholder="Search"/>
+                            <br>
+                            <button class="btn btn-primary" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="col-md-3">
+                <a th:href="@{~/admin/denomination(sort=(${page?.sort?.getOrderFor('name')?.ascending} ? 'name,desc' : 'name,asc'))}">
+                    <button>
+                        <span style="font-size: 15px;color: black">A - Z</span>
+                    </button>
+                </a>
+                <a th:href="@{~/admin/denomination(sort=(${page?.sort?.getOrderFor('name')?.descending} ? 'name,asc' : 'name,desc'))}">
+                    <button>
+                        <span style="font-size: 15px;color: black">Z - A</span>
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-4">
+                Page size:
+                <span sd:page-size-selector="javascript"></span>
+            </div>
+            <div class="col-md-5" align="right" sd:pagination-summary=""></div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div>
+            <a href="/admin/denomination/denominationEdit" th:href="@{/admin/denomination/denominationEdit}">
+                <button class="btn-block">Create denomination</button>
+            </a>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="denomination : ${denominationList}">
+                        <td th:text="${denomination.id}"></td>
+                        <td th:text="${denomination.name}"></td>
+                        <td>
+                            <a href="/admin/denomination/denominationEdit/"
+                               th:href="@{/admin/denomination/denominationEdit/__${denomination.id}__}">Edit
+                            </a>
+                            <a href="/admin/denomination/denominationDelete/"
+                               th:href="@{/admin/denomination/denominationDelete/__${denomination.id}__}">Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row" align="center">
+            <br>
+            <ul class="pagination" sd:pagination="full">
+                <li class="disabled">
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">1
+                        <span class="sr-only"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

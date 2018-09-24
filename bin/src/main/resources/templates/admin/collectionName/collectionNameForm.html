@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Collection name form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <h1>Collection name</h1>
+    <form class="form-group" action="/admin/collectionName/collectionNameEdit"
+          th:action="@{/admin/collectionName/collectionNameEdit}" method="post">
+        <input th:type="hidden" name="id" th:field="${collectionName.id}" title=""/>
+        <div class="form-group">
+            <label th:if="${#fields.hasErrors('collectionName.name')}"
+                   th:errors="*{collectionName.name}"
+                   class="validation-message"></label>
+            <input type="text" class="form-control" id="title" th:field="${collectionName.name}"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="#" th:href="@{/admin/collectionName/}" class="btn btn-danger" role="button">Cancel</a>
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
