@@ -10,17 +10,17 @@ import java.util.Optional;
 
 public interface DenominationService {
 
-    List<Denomination> findAll();
+	List<Denomination> findAll();
 
-    Optional<Denomination> findOne(Long id);
+	Optional<Denomination> findOne(Long id);
 
-    void save(Denomination denomination);
+	void save(Denomination denomination);
 
-    void delete(Long id);
+	void delete(Long id);
 
-    Page findAll(Pageable pageable, SimpleFilter filter);
+	Page<Denomination> findAll(Pageable pageable, SimpleFilter filter);
 
-    Page findAll(Pageable pageable);
+	Page<Denomination> findAll(Pageable pageable);
 
-    Denomination findByName(String name);
+	Denomination findByName(String name);
 }

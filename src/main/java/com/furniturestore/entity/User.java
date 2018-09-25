@@ -10,162 +10,176 @@ import java.util.Set;
 @Entity
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1654713090293593231L;
 
-    private String email;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    private String password;
+	private String email;
 
-    private String name;
+	private String password;
 
-    private String lastName;
+	private String name;
 
-    private int active;
+	private String lastName;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+	private int active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private ShoppingCart shoppingCart;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
-    public User() {
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	private ShoppingCart shoppingCart;
 
-    public User(String email, String password, String name, String lastName, int active, Set<Role> roles, ShoppingCart shoppingCart) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.lastName = lastName;
-        this.active = active;
-        this.roles = roles;
-        this.shoppingCart = shoppingCart;
-    }
+	public User() {
+	}
 
-    public int getId() {
-        return id;
-    }
+	public User(String email, String password, String name, String lastName, int active, Set<Role> roles,
+			ShoppingCart shoppingCart) {
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.lastName = lastName;
+		this.active = active;
+		this.roles = roles;
+		this.shoppingCart = shoppingCart;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	@Override
+	public String getUsername() {
+		return email;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public int getActive() {
-        return active;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setActive(int active) {
-        this.active = active;
-    }
+	public int getActive() {
+		return active;
+	}
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+	public void setActive(int active) {
+		this.active = active;
+	}
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+	public Set<Role> getRoles() {
+		return roles;
+	}
 
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
-    }
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
-    }
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
 
-        User user = (User) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof User))
+			return false;
 
-        if (getId() != user.getId()) return false;
-        if (getActive() != user.getActive()) return false;
-        if (!getEmail().equals(user.getEmail())) return false;
-        if (!getPassword().equals(user.getPassword())) return false;
-        if (!getName().equals(user.getName())) return false;
-        if (!getLastName().equals(user.getLastName())) return false;
-        if (!getRoles().equals(user.getRoles())) return false;
-        return getShoppingCart().equals(user.getShoppingCart());
-    }
+		User user = (User) o;
 
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + getEmail().hashCode();
-        result = 31 * result + getPassword().hashCode();
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getLastName().hashCode();
-        result = 31 * result + getActive();
-        result = 31 * result + getRoles().hashCode();
-        result = 31 * result + getShoppingCart().hashCode();
-        return result;
-    }
+		if (getId() != user.getId())
+			return false;
+		if (getActive() != user.getActive())
+			return false;
+		if (!getEmail().equals(user.getEmail()))
+			return false;
+		if (!getPassword().equals(user.getPassword()))
+			return false;
+		if (!getName().equals(user.getName()))
+			return false;
+		if (!getLastName().equals(user.getLastName()))
+			return false;
+		if (!getRoles().equals(user.getRoles()))
+			return false;
+		return getShoppingCart().equals(user.getShoppingCart());
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getId();
+		result = 31 * result + getEmail().hashCode();
+		result = 31 * result + getPassword().hashCode();
+		result = 31 * result + getName().hashCode();
+		result = 31 * result + getLastName().hashCode();
+		result = 31 * result + getActive();
+		result = 31 * result + getRoles().hashCode();
+		result = 31 * result + getShoppingCart().hashCode();
+		return result;
+	}
 }
-
